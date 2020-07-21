@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const StyledBox = (props) => {
+const StyledBox = ({ hexCode, colorName }) => {
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: props.value,
+      backgroundColor: hexCode,
       marginTop: 15,
       padding: 15,
       alignItems: 'center',
@@ -17,7 +17,7 @@ const StyledBox = (props) => {
   });
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{props.color + ' ' + props.value}</Text>
+      <Text style={styles.text}>{colorName + ' ' + hexCode}</Text>
     </View>
   );
 };

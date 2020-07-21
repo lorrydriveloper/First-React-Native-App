@@ -9,17 +9,20 @@ activateKeepAwake();
 
 const colors = {
   Cyan: '#2aa198',
+  Orange: '#cb4b16',
   Blue: '#268bd2',
   Magenta: '#d33682',
-  Orange: '#cb4b16',
 };
 const App = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Text style={styles.text}>Here are some boxes of different colors</Text>
       {Object.keys(colors).map((color) => {
-        return <StyledBox key={color} color={color} value={colors[color]} />;
+        return (
+          <StyledBox key={color} colorName={color} hexCode={colors[color]} />
+        );
       })}
+      <StyledBox colorName={'Red'} hexCode={'#cb5555'} />
     </SafeAreaView>
   );
 };
