@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+
 const StyledBox = ({ hexCode, colorName }) => {
   const styles = StyleSheet.create({
     container: {
@@ -10,7 +11,11 @@ const StyledBox = ({ hexCode, colorName }) => {
       alignItems: 'center',
     },
     text: {
-      color: '#fff',
+      color:
+        // return false if color close to the 10% of the white spectre
+        parseInt(hexCode.replace('#', ''), 16) > 0xffffff / 1.15
+          ? '#000'
+          : '#fff',
       fontSize: 18,
       fontWeight: 'bold',
     },
