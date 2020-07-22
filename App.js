@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import StyledBox from './components/StyledBox';
 import { activateKeepAwake } from 'expo-keep-awake';
-
+import { NavigationContainer } from '@react-navigation/native';
 
 activateKeepAwake();
 
@@ -40,25 +40,27 @@ const COLORS = [
 ];
 const App = () => {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <FlatList
-        data={COLORS}
-        keyExtractor={(item) => item.hexCode}
-        ListHeaderComponent={() => <Text style={styles.text}>Solarize</Text>}
-        renderItem={({ item }) => (
-          <StyledBox colorName={item.colorName} hexCode={item.hexCode} />
-        )}
-      />
+    <NavigationContainer>
+      <SafeAreaView style={styles.safeArea}>
+        <FlatList
+          data={COLORS}
+          keyExtractor={(item) => item.hexCode}
+          ListHeaderComponent={() => <Text style={styles.text}>Solarize</Text>}
+          renderItem={({ item }) => (
+            <StyledBox colorName={item.colorName} hexCode={item.hexCode} />
+          )}
+        />
 
-      <Text style={styles.text}>Here are some boxes of different colors</Text>
-      {/* DO NOT USE MAP ON REACT NATIVE */}
-      {Object.keys(colors).map((color) => {
-        return (
-          <StyledBox key={color} colorName={color} hexCode={colors[color]} />
-        );
-      })}
-      <StyledBox colorName={'Red'} hexCode={'#cb5555'} />
-    </SafeAreaView>
+        <Text style={styles.text}>Here are some boxes of different colors</Text>
+        {/* DO NOT USE MAP ON REACT NATIVE */}
+        {Object.keys(colors).map((color) => {
+          return (
+            <StyledBox key={color} colorName={color} hexCode={colors[color]} />
+          );
+        })}
+        <StyledBox colorName={'Red'} hexCode={'#cb5555'} />
+      </SafeAreaView>
+    </NavigationContainer>
   );
 };
 
