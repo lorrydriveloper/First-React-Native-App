@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity, FlatList } from 'react-native-gesture-handler';
+import { shadow } from '../sharedStyles/shadow';
 
 const PalettePreview = ({ palette, handlePress }) => {
   const { colors, paletteName } = palette;
@@ -9,7 +10,8 @@ const PalettePreview = ({ palette, handlePress }) => {
       <TouchableOpacity onPress={handlePress}>
         <Text style={styles.text}>{paletteName}</Text>
         <FlatList
-          horizontal={true}
+          // style={styles.list}
+          horizontal={true} //    Shadows doesn't show use flex instead
           data={colors.slice(0, 5)}
           keyExtractor={item => item.hexCode}
           renderItem={({ item }) => (
@@ -25,9 +27,11 @@ export default PalettePreview;
 
 const styles = StyleSheet.create({
   preview: {
+    ...shadow,
     height: 50,
     width: 50,
     marginLeft: 5,
+    borderRadius: 5,
   },
   text: {
     fontWeight: 'bold',
@@ -35,10 +39,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   card: {
+    ...shadow,
     backgroundColor: '#fef',
     marginBottom: 10,
     borderRadius: 5,
     padding: 10,
-    elevation: 3,
+  },
+  list: {
+    flexDirection: 'row',
+    backgroundColor: 'red',
   },
 });

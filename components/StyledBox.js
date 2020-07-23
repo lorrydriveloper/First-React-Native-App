@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { shadow } from '../sharedStyles/shadow';
 
 const StyledBox = ({ hexCode, colorName }) => {
   const styles = StyleSheet.create({
     container: {
+      ...shadow,
       backgroundColor: hexCode,
       marginTop: 15,
       padding: 15,
