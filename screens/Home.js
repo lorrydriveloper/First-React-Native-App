@@ -1,17 +1,31 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, RefreshControl } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import PalettePreview from '../components/Navigation';
 
 const Home = ({ navigation }) => {
   const [palette, setPalette] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await handleFetch();
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 2000);
+  }, []);
 
   const handleFetch = useCallback(async () => {
-    const data = await fetch(
+    const result = await fetch(
       'https://color-palette-api.kadikraman.now.sh/palettes',
     );
-    const paletteArray = await data.json();
-    setPalette(paletteArray);
+    if (result.ok) {
+      const paletteArray = await result.json();
+      setPalette(paletteArray);
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('sorry and Error has ocurred');
+    }
   }, []);
 
   useEffect(() => {
@@ -29,6 +43,12 @@ const Home = ({ navigation }) => {
           handlePress={() => navigation.navigate('ColorPalette', item)}
         />
       )}
+      // refreshing={isRefreshing}
+      // onRefresh={handleRefresh}
+      // not working for me????
+      refreshControl={
+        <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
+      }
     />
   );
 };
