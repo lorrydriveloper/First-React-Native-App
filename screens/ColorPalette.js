@@ -3,13 +3,6 @@ import { StyleSheet } from 'react-native';
 import StyledBox from '../components/StyledBox';
 import { FlatList } from 'react-native-gesture-handler';
 
-// const colors = {
-//   Cyan: '#2aa198',
-//   Orange: '#cb4b16',
-//   Blue: '#268bd2',
-//   Magenta: '#d33682',
-// };
-
 const ColorPalette = ({ route }) => {
   const { colors } = route.params;
   return (
