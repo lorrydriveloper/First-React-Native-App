@@ -1,7 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, RefreshControl } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { StyleSheet, RefreshControl, Text, Button } from 'react-native';
+import {
+  FlatList,
+  TouchableNativeFeedback,
+  TouchableHighlight,
+} from 'react-native-gesture-handler';
 import PalettePreview from '../components/Navigation';
+import { shadow } from '../sharedStyles/shadow';
 
 const Home = ({ navigation }) => {
   const [palette, setPalette] = useState([]);
@@ -13,7 +18,7 @@ const Home = ({ navigation }) => {
     setTimeout(() => {
       setIsRefreshing(false);
     }, 2000);
-  }, []);
+  }, [handleFetch]);
 
   const handleFetch = useCallback(async () => {
     const result = await fetch(
@@ -30,7 +35,7 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     handleFetch();
-  }, []);
+  }, [handleFetch]);
 
   return (
     <FlatList
@@ -49,6 +54,14 @@ const Home = ({ navigation }) => {
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
       }
+      ListHeaderComponent={
+        <TouchableHighlight
+          onPress={() => navigation.navigate('PaletteModal')}
+          style={styles.button}
+        >
+          <Text>Add new Pallete</Text>
+        </TouchableHighlight>
+      }
     />
   );
 };
@@ -59,5 +72,15 @@ const styles = StyleSheet.create({
   list: {
     padding: 15,
     backgroundColor: 'white',
+  },
+  button: {
+    ...shadow,
+    borderRadius: 5,
+    height: 35,
+    width: 150,
+    backgroundColor: 'aliceblue',
+    marginBottom: 10,
+    padding: 5,
+    alignItems: 'center',
   },
 });
