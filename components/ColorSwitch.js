@@ -13,7 +13,8 @@ const ColorSwitch = ({ item, addColor, removeColor }) => {
     } else {
       removeColor(item);
     }
-  }, [addColor, isEnabled, item, removeColor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEnabled]);
 
   return (
     <View>

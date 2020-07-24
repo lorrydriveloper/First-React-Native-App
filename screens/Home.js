@@ -1,16 +1,19 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { StyleSheet, RefreshControl, Text, Button } from 'react-native';
-import {
-  FlatList,
-  TouchableNativeFeedback,
-  TouchableHighlight,
-} from 'react-native-gesture-handler';
+import { StyleSheet, RefreshControl, Text } from 'react-native';
+import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
 import PalettePreview from '../components/Navigation';
 import { shadow } from '../sharedStyles/shadow';
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
   const [palette, setPalette] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const newPallete = route.params ? route.params.newPalette : undefined;
+
+  useEffect(() => {
+    if (newPallete) {
+      setPalette(prev => [newPallete, ...prev]);
+    }
+  }, [newPallete]);
 
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);

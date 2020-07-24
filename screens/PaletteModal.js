@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import {
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native-gesture-handler';
+import React, { useState, useCallback } from 'react';
+import { StyleSheet, View, Text, Button, Alert } from 'react-native';
+import { TextInput, FlatList } from 'react-native-gesture-handler';
 import COLORS from '../data/colors';
 import ColorSwitch from '../components/ColorSwitch';
 
-const PaletteModal = () => {
+const PaletteModal = ({ navigation }) => {
   const [newPalette, setNewPalette] = useState({
     paletteName: '',
     colors: [],
   });
 
-  const addColor = object => {
+  const addColor = useCallback(object => {
     setNewPalette(prevState => ({
       ...prevState,
       colors: [...prevState.colors, object],
     }));
-  };
+  }, []);
+
   const handleSubmit = () => {
-    alert('hello');
+    if (newPalette.paletteName === '' || newPalette.colors.length < 3) {
+      Alert.alert('complete your new Palette');
+    } else {
+      navigation.navigate('Home', { newPalette });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
+
   const removeColor = () => {};
 
   return (
@@ -51,10 +54,10 @@ const PaletteModal = () => {
           />
         )}
       />
-      {/* <Button onPress={handleSubmit} title="submit" /> */}
-      <TouchableOpacity onPress={() => handleSubmit()}>
+      <Button onPress={handleSubmit} title="submit" />
+      {/* <TouchableOpacity onPress={() => handleSubmit()}>
         <Text>Submit</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
