@@ -21,9 +21,9 @@ const MainStackScreen = () => {
         name="Home"
         component={Home}
         options={{
-          title: 'Flatiron CheatSheet',
+          title: 'Palette Color',
           headerStyle: {
-            backgroundColor: 'red',
+            backgroundColor: 'teal',
           },
           headerTitleStyle: {
             fontWeight: 'bold',
