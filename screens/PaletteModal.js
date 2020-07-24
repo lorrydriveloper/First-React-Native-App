@@ -26,7 +26,14 @@ const PaletteModal = ({ navigation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
-  const removeColor = () => {};
+  const removeColor = object => {
+    setNewPalette(prevState => ({
+      ...prevState,
+      colors: prevState.colors.filter(
+        color => color.colorName !== object.colorName,
+      ),
+    }));
+  };
 
   return (
     <View style={styles.container}>
